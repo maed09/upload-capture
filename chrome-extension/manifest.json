@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "File Upload Capture",
+  "version": "1.0",
+  "description": "Captures pdf file uploads.",
+  "permissions": ["scripting", "activeTab"],
+  "host_permissions": ["https://chatgpt.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://chatgpt.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": ""
+  }
+}

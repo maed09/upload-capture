@@ -1,0 +1,16 @@
+version: '3.4'
+services:
+  myapp:
+    container_name: api
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+      args:
+        - PORT = ${PORT}
+    ports:
+      - ${PORT}:${PORT}
+    env_file:
+      - .env
+    volumes:
+      - ./:/app
