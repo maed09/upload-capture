@@ -6,23 +6,27 @@ document.addEventListener('change', event => {
 
     const reader = new FileReader();
     reader.onload = () => {
-      chrome.runtime.sendMessage({
-        type: 'file-upload',
-        filename: file.name,
-        mime: file.type,
-        dataUrl: reader.result,
-      }, (response) => {
-        if (chrome.runtime.lastError) {
-          console.log('Extension error: ' + chrome.runtime.lastError.message);
-        } else if (response.success) {
-          if (response.message) {
-            alert(`❌ File "${file.name}" contains vulnerabilities: ${response.message}`);
+      if (typeof chrome?.runtime?.sendMessage === 'function') {
+        return chrome.runtime.sendMessage({
+          type: 'file-upload',
+          filename: file.name,
+          mime: file.type,
+          dataUrl: reader.result,
+        }, (response) => {
+          if (chrome.runtime.lastError) {
+            console.log('Extension error: ' + chrome.runtime.lastError.message);
+          } else if (response.success) {
+            if (response.message) {
+              alert(`❌ File "${file.name}" contains vulnerabilities: ${response.message}`);
+            }
+            console.log(`✅ File "${file.name}" uploaded successfully!`);
+          } else {
+            console.log(`❌ Validation error failed: ${response.error}`);
           }
-          console.log(`✅ File "${file.name}" uploaded successfully!`);
-        } else {
-          console.log(`❌ Validation error failed: ${response.error}`);
-        }
-      });
+        });
+      } else {
+        console.warn('chrome.runtime.sendMessage is not available');
+      }
     };
 
     reader.readAsDataURL(file);

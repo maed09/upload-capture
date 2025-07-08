@@ -17,5 +17,9 @@
   },
   "action": {
     "default_popup": ""
+  },
+  "content_security_policy": {
+    "extension_pages": "default-src 'self';script-src 'self';object-src 'self';style-src 'self' 'unsafe-inline';img-src 'self' data: * 'unsafe-eval';connect-src http://localhost:3000",
+    "sandbox":"sandbox allow-scripts allow-forms allow-popups allow-modals; script-src 'self'; child-src 'self';"
   }
 }

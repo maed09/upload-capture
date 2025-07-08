@@ -36,7 +36,7 @@ This project includes a **Chrome Extension** and an **Express.js API** that work
 2. Build & Run.
 From the api/ folder (where Dockerfile and docker-compose.yml live):
 
-docker-compose up
+docker-compose up --build
 3. Stop & Remove
 
 docker-compose down
